@@ -1,0 +1,17 @@
+---
+name: Step Importer
+description: Loads Build steps from any repository into the running build
+author: https://github.com/marketplacer
+requirements: []
+configuration:
+  properties:
+    repository:
+      type: string
+    ref:
+      type: string
+    steps:
+      type: string
+  required:
+    - repository
+    - ref
+    - steps

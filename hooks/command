@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+START_DIR=$PWD
+STEPS_REPO=$(mktemp -d)
+
+# We avoid using a clone here so we don't have to wait for a full repo clone
+cd $STEPS_REPO
+git init
+git remote add origin $BUILDKITE_PLUGIN_STEP_IMPORTER_REPOSITORY
+git fetch origin $BUILDKITE_PLUGIN_STEP_IMPORTER_REF
+git reset --hard FETCH_HEAD
+
+# Useful as a debug step, so you can see what gets sent to the BuildKite agent
+# just in case it's not working for some reason
+cat $BUILDKITE_PLUGIN_STEP_IMPORTER_STEPS
+
+cat $BUILDKITE_PLUGIN_STEP_IMPORTER_STEPS | buildkite-agent pipeline upload
