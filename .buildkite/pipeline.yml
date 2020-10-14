@@ -1,7 +1,32 @@
 ---
 
 steps:
+  - name: ':git: Lint commits'
+    command: 'npm run lint:commits:branch'
+    # we don't modify main commits, so it's too late to lint here
+    branches: '!main'
+    plugins:
+      - docker-compose#v3.7.0:
+          config: .buildkite/docker/docker-compose.yml
+          run: node
   - name: 'Unit tests'
     plugins:
       - docker-compose#v3.7.0:
           run: tests
+
+  - wait
+
+  - name: ':shipit: Publish release'
+    command: 'npx semantic-release'
+    branches: 'main'
+    plugins:
+      - seek-oss/aws-sm#v2.1.0:
+          env:
+            GITHUB_TOKEN: "buildkite-$BUILDKITE_PIPELINE_SLUG-github-token"
+      - docker-compose#v3.7.0:
+          config: .buildkite/docker/docker-compose.yml
+          run: node
+          env:
+            - CI
+            - GITHUB_TOKEN
+            - GIT_BRANCH: "$BUILDKITE_BRANCH"

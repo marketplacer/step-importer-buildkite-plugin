@@ -1,0 +1,28 @@
+{
+  "name": "step-importer-buildkite-plugin",
+  "version": "1.0.0",
+  "description": "Loads Build steps from any repository into the running build",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marketplacer/step-importer-buildkite-plugin.git"
+  },
+  "scripts": {
+    "lint:commits:branch": "commitlint --from origin/HEAD --to HEAD --verbose"
+  },
+  "author": "Marketplacer <it@marketplacer.com>",
+  "bugs": {
+    "url": "https://github.com/marketplacer/step-importer-buildkite-plugin/issues"
+  },
+  "homepage": "https://github.com/marketplacer/step-importer-buildkite-plugin#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "husky": "^4.2.5",
+    "semantic-release": "^17.1.1"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  }
+}

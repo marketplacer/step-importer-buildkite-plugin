@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  node:
+    build:
+      dockerfile: '.buildkite/docker/Dockerfile'
+      context: '../../'
+    volumes:
+      - ../../:/app
+      - /app/node_modules

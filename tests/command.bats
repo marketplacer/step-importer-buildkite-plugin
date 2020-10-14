@@ -3,9 +3,9 @@
 load "$BATS_PATH/load.bash"
 
 @test "Imports the Hello, world! step" {
-  export BUILDKITE_PLUGIN_STEP_IMPORTER_REPOSITORY="$PWD"
-  export BUILDKITE_PLUGIN_STEP_IMPORTER_REF="test-steps"
-  export BUILDKITE_PLUGIN_STEP_IMPORTER_STEPS="buildkite/hello-world.yml"
+  export BUILDKITE_PLUGIN_STEP_IMPORTER_REPOSITORY="https://github.com/marketplacer/step-importer-buildkite-plugin.git"
+  export BUILDKITE_PLUGIN_STEP_IMPORTER_REF="main"
+  export BUILDKITE_PLUGIN_STEP_IMPORTER_STEPS=".buildkite/shared-steps/hello-world.yml"
 
   stub buildkite-agent pipeline upload
 
